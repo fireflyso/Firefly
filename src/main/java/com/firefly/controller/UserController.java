@@ -21,9 +21,14 @@ public class UserController {
 	@Resource
 	private UserService userService; 
 	
-	@RequestMapping("/admin")
-	public String toAdmin(HttpServletRequest request,Model model){
+	@RequestMapping("/adminLoginPage")
+	public String toAdmin(){
 		return "adminLogin";
+	}
+	
+	@RequestMapping("/userLoginPage")
+	public String toUserLogin(){
+		return "userLogin";
 	}
 	
 	@RequestMapping("/addUserPage")
@@ -38,15 +43,14 @@ public class UserController {
 	
 	@RequestMapping("/adminLogin")
 	public ModelAndView adminLogin(User user,HttpSession session){
-		session.setAttribute("admin", user);
 		User dbUser = this.userService.getUserByName(user.getUserName());
 		ModelAndView model = new ModelAndView();
 		if(null!=dbUser&&user.getUserPassword().equals(dbUser.getUserPassword())
 				&&dbUser.getUserActive().equals("01")
 				&&dbUser.getUserAdmin().equals("01")){
+			session.setAttribute("admin", dbUser);
 			model.setViewName("adminMainPage");
 			List userList = this.userService.getAllUser();
-//			model.addObject("userList",userList);
 			session.setAttribute("userList", userList);
 			return model;
 		}
@@ -79,6 +83,25 @@ public class UserController {
 		session.setAttribute("userList", this.userService.getAllUser());
 		return "adminMainPage";
 		
+	}
+	
+	@RequestMapping("/userLogin")
+	public String userLogin(HttpSession session,User user,Model model){
+		System.out.println("userLogin   :"+user);
+		User dbUser = this.userService.getUserByName(user.getUserName());
+		if(null!=dbUser&&user.getUserPassword().equals(dbUser.getUserPassword())
+				&&dbUser.getUserActive().equals("01")
+				&&dbUser.getUserAdmin().equals("00")){
+			session.setAttribute("user", user);
+			
+//			List userList = this.userService.getAllUser();
+//			session.setAttribute("userList", userList);
+			return "userMainPage";
+		}
+		else{
+			model.addAttribute("msg","login default chack your info and try again");
+			return "userLogin";
+		}
 	}
 	
 	/*@RequestMapping("/showUser")

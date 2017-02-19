@@ -9,6 +9,7 @@
 <body>
 	<center>
 		<h2>Login For Admin</h2>
+		<a href="userLoginPage">Login For user</a>
 		<hr style="height:4px;border:none;border-top:2px solid #555555;">
 		<br><br>
 		<form action="adminLogin">
