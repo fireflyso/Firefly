@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.firefly.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.firefly.domain.User" >
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_age" property="userAge" jdbcType="VARCHAR" />
+    <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
+    <result column="user_photo" property="userPhoto" jdbcType="VARCHAR" />
+    <result column="user_admin" property="userAdmin" jdbcType="VARCHAR" />
+    <result column="user_active" property="userActive" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    user_id,user_name,user_password,user_age,user_gender,user_photo,user_admin,user_active
+  </sql>
+  
+  
+  <select id="getUserByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	select 
+  	<include refid="Base_Column_List" /> 
+  	from user 
+  	where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getAllUser" resultMap="BaseResultMap">
+  	select * from user
+  </select>
+  
+  <update id="userActive" parameterType="com.firefly.domain.User">
+  	update user set 
+  	<if test="userActive =='01'">
+  		user_active ="00"
+  	</if>
+  	<if test="userActive =='00'">
+  		user_active ="01"
+  	</if>
+  	where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <insert id="addUser" parameterType="com.firefly.domain.User" >
+    insert into user (user_id, user_name, user_password, 
+      user_age, user_gender, user_photo, 
+      user_admin, user_active)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userAge,jdbcType=VARCHAR}, #{userGender,jdbcType=VARCHAR}, #{userPhoto,jdbcType=VARCHAR}, 
+      #{userAdmin,jdbcType=VARCHAR}, #{userActive,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.firefly.domain.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userAge != null" >
+        user_age,
+      </if>
+      <if test="userGender != null" >
+        user_gender,
+      </if>
+      <if test="userPhoto != null" >
+        user_photo,
+      </if>
+      <if test="userAdmin != null" >
+        user_admin,
+      </if>
+      <if test="userActive != null" >
+        user_active,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null" >
+        #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userGender != null" >
+        #{userGender,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhoto != null" >
+        #{userPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="userAdmin != null" >
+        #{userAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="userActive != null" >
+        #{userActive,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>
