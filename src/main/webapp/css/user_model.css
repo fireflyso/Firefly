@@ -1,0 +1,65 @@
+.con {
+	width:1000px;
+	margin:0 auto;
+}
+.con h1 {
+	text-align:center;
+	font-weight:normal;
+}
+h1,h2 {
+	font-weight:normal;
+	color:#000000;
+	clear:both;
+}
+ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.select_box {
+	width:180px;
+	height:70px;
+	position:relative;
+	float:left;
+	margin-right:50px;
+}
+.select_box span {
+	display:inline-block;
+	width:180px;
+	height:70px;
+	line-height:60px;
+	font-size: 25px;
+	cursor:pointer; 
+}
+.select_box .span_aa {
+	color:#000000;
+}
+.select_box ul {
+	width:180px;
+	position:absolute;
+	top:90px;
+	z-index:9999;
+	left:-1px;
+	border-radius: 10px; 
+	border:2px solid #000000;
+	display:none;
+	background:#ffffff;
+	padding: 0px;
+}
+.select_box li {
+	cursor:pointer;
+	line-height:50px;
+}
+.select_box li:hover {
+	background:#000000;
+	color:#ffffff;
+}
+.select_box font {
+	position: absolute;
+    right: 50%;
+    top: 60%;
+    font-size: 30px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    color: #000;
+    transform: rotate(90deg);
+}

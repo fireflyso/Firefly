@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.firefly.dao.FolderMapper" >
+  <resultMap id="BaseResultMap" type="com.firefly.domain.Folder" >
+    <id column="folder_id" property="folderId" jdbcType="VARCHAR" />
+    <result column="folder_name" property="folderName" jdbcType="VARCHAR" />
+    <result column="folder_parent" property="folderParent" jdbcType="VARCHAR" />
+    <result column="folder_createTime" property="folderCreatetime" jdbcType="VARCHAR" />
+    <result column="folder_active" property="folderActive" jdbcType="VARCHAR" />
+    <result column="folder_author" property="folderAuthor" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    folder_id, folder_name, folder_parent, folder_createTime, folder_active, folder_author
+  </sql>
+  
+  <select id="getFolderForTree" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List"></include>
+	from folder
+  </select>	  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from folder
+    where folder_id = #{folderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from folder
+    where folder_id = #{folderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.firefly.domain.Folder" >
+    insert into folder (folder_id, folder_name, folder_parent, 
+      folder_createTime, folder_active, folder_author
+      )
+    values (#{folderId,jdbcType=VARCHAR}, #{folderName,jdbcType=VARCHAR}, #{folderParent,jdbcType=VARCHAR}, 
+      #{folderCreatetime,jdbcType=VARCHAR}, #{folderActive,jdbcType=VARCHAR}, #{folderAuthor,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.firefly.domain.Folder" >
+    insert into folder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="folderId != null" >
+        folder_id,
+      </if>
+      <if test="folderName != null" >
+        folder_name,
+      </if>
+      <if test="folderParent != null" >
+        folder_parent,
+      </if>
+      <if test="folderCreatetime != null" >
+        folder_createTime,
+      </if>
+      <if test="folderActive != null" >
+        folder_active,
+      </if>
+      <if test="folderAuthor != null" >
+        folder_author,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="folderId != null" >
+        #{folderId,jdbcType=VARCHAR},
+      </if>
+      <if test="folderName != null" >
+        #{folderName,jdbcType=VARCHAR},
+      </if>
+      <if test="folderParent != null" >
+        #{folderParent,jdbcType=VARCHAR},
+      </if>
+      <if test="folderCreatetime != null" >
+        #{folderCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="folderActive != null" >
+        #{folderActive,jdbcType=VARCHAR},
+      </if>
+      <if test="folderAuthor != null" >
+        #{folderAuthor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.firefly.domain.Folder" >
+    update folder
+    <set >
+      <if test="folderName != null" >
+        folder_name = #{folderName,jdbcType=VARCHAR},
+      </if>
+      <if test="folderParent != null" >
+        folder_parent = #{folderParent,jdbcType=VARCHAR},
+      </if>
+      <if test="folderCreatetime != null" >
+        folder_createTime = #{folderCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="folderActive != null" >
+        folder_active = #{folderActive,jdbcType=VARCHAR},
+      </if>
+      <if test="folderAuthor != null" >
+        folder_author = #{folderAuthor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where folder_id = #{folderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.firefly.domain.Folder" >
+    update folder
+    set folder_name = #{folderName,jdbcType=VARCHAR},
+      folder_parent = #{folderParent,jdbcType=VARCHAR},
+      folder_createTime = #{folderCreatetime,jdbcType=VARCHAR},
+      folder_active = #{folderActive,jdbcType=VARCHAR},
+      folder_author = #{folderAuthor,jdbcType=VARCHAR}
+    where folder_id = #{folderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -66,7 +66,6 @@ public class UserController {
 		User user = new User();
 		user.setUserId(request.getParameter("userId"));
 		user.setUserActive(request.getParameter("userActive"));
-		System.out.println("activeUser :  "+user);
 		this.userService.userActive(user);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("adminMainPage");
@@ -87,16 +86,12 @@ public class UserController {
 	
 	@RequestMapping("/userLogin")
 	public String userLogin(HttpSession session,User user,Model model){
-		System.out.println("userLogin   :"+user);
 		User dbUser = this.userService.getUserByName(user.getUserName());
 		if(null!=dbUser&&user.getUserPassword().equals(dbUser.getUserPassword())
 				&&dbUser.getUserActive().equals("01")
 				&&dbUser.getUserAdmin().equals("00")){
 			session.setAttribute("user", user);
-			
-//			List userList = this.userService.getAllUser();
-//			session.setAttribute("userList", userList);
-			return "userMainPage";
+			return "redirect:/folder/getFolderForTree";
 		}
 		else{
 			model.addAttribute("msg","login default chack your info and try again");
@@ -104,37 +99,8 @@ public class UserController {
 		}
 	}
 	
-	/*@RequestMapping("/showUser")
-	public String toIndex(HttpServletRequest request,Model model){
-		int userId = Integer.parseInt(request.getParameter("id"));
-		User user = this.userService.getUserById(userId);
-		model.addAttribute("user", user);
-		return "showUser";
-	}
+	 
+	 
 	
-	@RequestMapping("/addUser")
-	public String addUser(HttpServletRequest request,Model model){
-		User user = new User();
-		user.setUserName("firefly");
-		user.setUserId("2");
-		user.setUserPassword("123");
-		user.setUserAge("20");
-		System.out.println(user);
-		this.userService.addUser(user);
-		User user1 = this.userService.getUserById(2);
-		model.addAttribute("user", user1);
-		return "showUser";
-	}
-	
-	@RequestMapping("/login")
-	public String login(HttpServletRequest request,Model model){
-		String name = request.getParameter("name");
-		String password1 = request.getParameter("password");
-		User user = this.userService.getPasswordByName(name);
-		if(password1.equals(user.getUserPassword())){
-			model.addAttribute("user", user);
-			return "showUser";
-		}
-		return "";
-	}*/
+	 
 }

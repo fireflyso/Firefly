@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.firefly.dao.DocumentMapper" >
+
+
+  <resultMap id="userResult" type="com.firefly.domain.User" >
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_age" property="userAge" jdbcType="VARCHAR" />
+    <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
+    <result column="user_photo" property="userPhoto" jdbcType="VARCHAR" />
+    <result column="user_admin" property="userAdmin" jdbcType="VARCHAR" />
+    <result column="user_active" property="userActive" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="folderResult" type="com.firefly.domain.Folder" >
+    <id column="folder_id" property="folderId" jdbcType="VARCHAR" />
+    <result column="folder_name" property="folderName" jdbcType="VARCHAR" />
+    <result column="folder_parent" property="folderParent" jdbcType="VARCHAR" />
+    <result column="folder_createTime" property="folderCreatetime" jdbcType="VARCHAR" />
+    <result column="folder_active" property="folderActive" jdbcType="VARCHAR" />
+    <result column="folder_author" property="folderAuthor" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="BaseResultMap" type="com.firefly.domain.Document" >
+    <id column="doc_id" property="docId" jdbcType="VARCHAR" />
+    <result column="doc_name" property="docName" jdbcType="VARCHAR" />
+    <result column="doc_path" property="docPath" jdbcType="VARCHAR" />
+    <result column="doc_createTime" property="docCreatetime" jdbcType="VARCHAR" />
+    <result column="doc_active" property="docActive" jdbcType="VARCHAR" />
+    <result column="doc_type" property="docType" jdbcType="VARCHAR" />
+	<association column="doc_parent" property="docParent"  javaType="com.firefly.domain.Folder" jdbcType="VARCHAR" resultMap="folderResult"></association>
+	<association column="doc_authoer" property="docAuthor"  javaType="com.firefly.domain.User" jdbcType="VARCHAR" resultMap="userResult"></association>
+  </resultMap>
+ 
+  <select id="getDocumentByFolder" resultMap="BaseResultMap" parameterType="com.firefly.domain.Document" >
+    select * from document d ,folder f , user u where d.doc_parent=f.folder_id and d.doc_author=u.user_id
+  </select>
+</mapper>

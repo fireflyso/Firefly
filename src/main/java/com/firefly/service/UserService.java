@@ -14,4 +14,5 @@ public interface UserService {
 	public List getAllUser();
 
 	public void userActive(User user);
+
 }

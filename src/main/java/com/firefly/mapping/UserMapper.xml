@@ -48,6 +48,13 @@
       #{userAdmin,jdbcType=VARCHAR}, #{userActive,jdbcType=VARCHAR})
   </insert>
   
+  
+  
+  
+  
+  
+  
+  
   <insert id="insertSelective" parameterType="com.firefly.domain.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >

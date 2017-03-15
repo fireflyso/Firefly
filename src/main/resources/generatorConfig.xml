@@ -35,7 +35,7 @@
 	  <javaClientGenerator type="XMLMAPPER" targetPackage="com.firefly.dao" targetProject="Firefly">  
 	      <property name="enableSubPackages" value="true"/>  
 	  </javaClientGenerator>  
-	  <table tableName="user_t" domainObjectName="Usert" 
+	  <table tableName="document" domainObjectName="Document" 
 	   enableCountByExample="false" enableUpdateByExample="false" 
 	   enableDeleteByExample="false" enableSelectByExample="false" 
 	   selectByExampleQueryId="false">
