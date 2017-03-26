@@ -19,8 +19,17 @@ public class DocumentServiceImpl implements DocumentService {
 	
 	@Override
 	public List<Document> getDocumentByFolder(Folder folder) {
-		
 		return documentDao.getDocumentByFolder(folder);
+	}
+
+	@Override
+	public void addDoc(Document doc) {
+		documentDao.addDoc(doc);
+	}
+
+	@Override
+	public void deleteDoc(String docId) {
+		documentDao.deleteDoc(docId);
 	}
 
 }

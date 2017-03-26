@@ -6,11 +6,8 @@ import com.firefly.domain.Document;
 import com.firefly.domain.Folder;
 
 public interface DocumentMapper {
-    int deleteByPrimaryKey(String docId);
 
     int insert(Document record);
-
-    int insertSelective(Document record);
 
     Document selectByPrimaryKey(String docId);
 
@@ -19,4 +16,8 @@ public interface DocumentMapper {
     int updateByPrimaryKey(Document record);
 
 	List<Document> getDocumentByFolder(Folder folder);
+
+	void addDoc(Document doc);
+
+	void deleteDoc(String docId);
 }

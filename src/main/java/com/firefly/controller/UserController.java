@@ -90,7 +90,7 @@ public class UserController {
 		if(null!=dbUser&&user.getUserPassword().equals(dbUser.getUserPassword())
 				&&dbUser.getUserActive().equals("01")
 				&&dbUser.getUserAdmin().equals("00")){
-			session.setAttribute("user", user);
+			session.setAttribute("currentUser", dbUser);
 			return "redirect:/folder/getFolderForTree";
 		}
 		else{

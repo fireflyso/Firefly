@@ -4,13 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Insert title here</title> 
 <body>
 <center>
 	<h2>Welcome Page</h2>
 	<br>
 	<a href="user/adminLoginPage">Login For Admin</a>
 	<a href="user/userLoginPage">Login For User</a>
+	
+	
 </center>
 </body>
 </html>

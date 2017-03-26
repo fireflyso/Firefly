@@ -9,4 +9,8 @@ public interface DocumentService {
 
 	public List<Document> getDocumentByFolder(Folder folder);
 
+	public void addDoc(Document doc);
+
+	public void deleteDoc(String docId);
+
 }

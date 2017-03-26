@@ -17,10 +17,9 @@
   <resultMap id="folderResult" type="com.firefly.domain.Folder" >
     <id column="folder_id" property="folderId" jdbcType="VARCHAR" />
     <result column="folder_name" property="folderName" jdbcType="VARCHAR" />
-    <result column="folder_parent" property="folderParent" jdbcType="VARCHAR" />
     <result column="folder_createTime" property="folderCreatetime" jdbcType="VARCHAR" />
     <result column="folder_active" property="folderActive" jdbcType="VARCHAR" />
-    <result column="folder_author" property="folderAuthor" jdbcType="VARCHAR" />
+    <result column="folder_isRoot" property="folderIsRoot" jdbcType="VARCHAR" />
   </resultMap>
 
 
@@ -34,8 +33,26 @@
 	<association column="doc_parent" property="docParent"  javaType="com.firefly.domain.Folder" jdbcType="VARCHAR" resultMap="folderResult"></association>
 	<association column="doc_authoer" property="docAuthor"  javaType="com.firefly.domain.User" jdbcType="VARCHAR" resultMap="userResult"></association>
   </resultMap>
+  
  
-  <select id="getDocumentByFolder" resultMap="BaseResultMap" parameterType="com.firefly.domain.Document" >
-    select * from document d ,folder f , user u where d.doc_parent=f.folder_id and d.doc_author=u.user_id
+  <select id="getDocumentByFolder" resultMap="BaseResultMap" parameterType="com.firefly.domain.Folder" >
+    select * 
+    from document d ,folder f , user u 
+    where 
+    d.doc_parent=f.folder_id 
+    and d.doc_author=u.user_id 
+    and folder_id=#{folderId,jdbcType=VARCHAR} 
+    and d.doc_active = '01'
   </select>
+   
+  <update id="deleteDoc" parameterType="java.lang.String">
+  	update document set doc_active = "00" where doc_id = #{docId}
+  </update>
+  
+  <insert id="addDoc" parameterType="com.firefly.domain.Document" >
+  	insert into 
+  	document (doc_id,doc_name,doc_path,doc_createTime,doc_active,doc_type,doc_parent,doc_author)
+  	value (#{docId,jdbcType=VARCHAR},#{docName,jdbcType=VARCHAR},#{docPath,jdbcType=VARCHAR},#{docCreatetime,jdbcType=VARCHAR},
+  	#{docActive,jdbcType=VARCHAR},#{docType,jdbcType=VARCHAR},#{docParent.folderId,jdbcType=VARCHAR},#{docAuthor.userId,jdbcType=VARCHAR}) 
+  </insert>
 </mapper>

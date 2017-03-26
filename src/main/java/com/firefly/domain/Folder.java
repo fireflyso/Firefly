@@ -5,13 +5,15 @@ public class Folder {
 
     private String folderName;
 
-    private String folderParent;
+    private Folder folderParent;
 
     private String folderCreatetime;
 
     private String folderActive;
 
-    private String folderAuthor;
+    private User folderAuthor;
+    
+    private String folderIsRoot;
 
     public String getFolderId() {
         return folderId;
@@ -29,15 +31,15 @@ public class Folder {
         this.folderName = folderName == null ? null : folderName.trim();
     }
 
-    public String getFolderParent() {
-        return folderParent;
-    }
+    public Folder getFolderParent() {
+		return folderParent;
+	}
 
-    public void setFolderParent(String folderParent) {
-        this.folderParent = folderParent == null ? null : folderParent.trim();
-    }
+	public void setFolderParent(Folder folderParent) {
+		this.folderParent = folderParent;
+	}
 
-    public String getFolderCreatetime() {
+	public String getFolderCreatetime() {
         return folderCreatetime;
     }
 
@@ -53,19 +55,28 @@ public class Folder {
         this.folderActive = folderActive == null ? null : folderActive.trim();
     }
 
-    public String getFolderAuthor() {
-        return folderAuthor;
-    }
+   
+	public User getFolderAuthor() {
+		return folderAuthor;
+	}
 
-    public void setFolderAuthor(String folderAuthor) {
-        this.folderAuthor = folderAuthor == null ? null : folderAuthor.trim();
-    }
+	public void setFolderAuthor(User folderAuthor) {
+		this.folderAuthor = folderAuthor;
+	}
 
 	@Override
 	public String toString() {
 		return "Folder [folderId=" + folderId + ", folderName=" + folderName + ", folderParent=" + folderParent
 				+ ", folderCreatetime=" + folderCreatetime + ", folderActive=" + folderActive + ", folderAuthor="
 				+ folderAuthor + "]";
+	}
+
+	public String getFolderIsRoot() {
+		return folderIsRoot;
+	}
+
+	public void setFolderIsRoot(String folderIsRoot) {
+		this.folderIsRoot = folderIsRoot;
 	}
     
     
